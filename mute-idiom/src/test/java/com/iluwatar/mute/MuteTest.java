@@ -1,6 +1,6 @@
-/**
+/*
  * The MIT License
- * Copyright (c) 2014-2016 Ilkka Seppälä
+ * Copyright © 2014-2019 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,16 +23,14 @@
 
 package com.iluwatar.mute;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Test for the mute-idiom pattern
@@ -45,27 +43,25 @@ public class MuteTest {
 
   @Test
   public void muteShouldRunTheCheckedRunnableAndNotThrowAnyExceptionIfCheckedRunnableDoesNotThrowAnyException() {
-    Mute.mute(() -> methodNotThrowingAnyException());
+    Mute.mute(this::methodNotThrowingAnyException);
   }
 
   @Test
-  public void muteShouldRethrowUnexpectedExceptionAsAssertionError() throws Exception {
-    assertThrows(AssertionError.class, () -> {
-      Mute.mute(() -> methodThrowingException());
-    });
+  public void muteShouldRethrowUnexpectedExceptionAsAssertionError() {
+    assertThrows(AssertionError.class, () -> Mute.mute(this::methodThrowingException));
   }
 
   @Test
   public void loggedMuteShouldRunTheCheckedRunnableAndNotThrowAnyExceptionIfCheckedRunnableDoesNotThrowAnyException() {
-    Mute.loggedMute(() -> methodNotThrowingAnyException());
+    Mute.loggedMute(this::methodNotThrowingAnyException);
   }
 
   @Test
-  public void loggedMuteShouldLogExceptionTraceBeforeSwallowingIt() throws IOException {
-    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+  public void loggedMuteShouldLogExceptionTraceBeforeSwallowingIt() {
+    var stream = new ByteArrayOutputStream();
     System.setErr(new PrintStream(stream));
 
-    Mute.loggedMute(() -> methodThrowingException());
+    Mute.loggedMute(this::methodThrowingException);
 
     assertTrue(new String(stream.toByteArray()).contains(MESSAGE));
   }
