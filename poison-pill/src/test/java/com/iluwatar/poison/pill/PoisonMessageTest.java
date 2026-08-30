@@ -1,6 +1,8 @@
-/**
+/*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright (c) 2014-2016 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,52 +24,38 @@
  */
 package com.iluwatar.poison.pill;
 
-import org.junit.jupiter.api.Test;
-
 import static com.iluwatar.poison.pill.Message.Headers;
 import static com.iluwatar.poison.pill.Message.POISON_PILL;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-/**
- * Date: 12/27/15 - 10:30 PM
- *
- * @author Jeroen Meulemeester
- */
-public class PoisonMessageTest {
+import org.junit.jupiter.api.Test;
+
+/** PoisonMessageTest */
+class PoisonMessageTest {
 
   @Test
-  public void testAddHeader() throws Exception {
-    assertThrows(UnsupportedOperationException.class, () -> {
-      POISON_PILL.addHeader(Headers.SENDER, "sender");
-    });
+  void testAddHeader() {
+    assertThrows(
+        UnsupportedOperationException.class, () -> POISON_PILL.addHeader(Headers.SENDER, "sender"));
   }
 
   @Test
-  public void testGetHeader() throws Exception {
-    assertThrows(UnsupportedOperationException.class, () -> {
-      POISON_PILL.getHeader(Headers.SENDER);
-    });
+  void testGetHeader() {
+    assertThrows(UnsupportedOperationException.class, () -> POISON_PILL.getHeader(Headers.SENDER));
   }
 
   @Test
-  public void testGetHeaders() throws Exception {
-    assertThrows(UnsupportedOperationException.class, () -> {
-      POISON_PILL.getHeaders();
-    });
+  void testGetHeaders() {
+    assertThrows(UnsupportedOperationException.class, POISON_PILL::getHeaders);
   }
 
   @Test
-  public void testSetBody() throws Exception {
-    assertThrows(UnsupportedOperationException.class, () -> {
-      POISON_PILL.setBody("Test message.");
-    });
+  void testSetBody() {
+    assertThrows(UnsupportedOperationException.class, () -> POISON_PILL.setBody("Test message."));
   }
 
   @Test
-  public void testGetBody() throws Exception {
-    assertThrows(UnsupportedOperationException.class, () -> {
-      POISON_PILL.getBody();
-    });
+  void testGetBody() {
+    assertThrows(UnsupportedOperationException.class, POISON_PILL::getBody);
   }
-
 }

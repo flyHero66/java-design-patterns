@@ -1,6 +1,8 @@
-/**
+/*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright (c) 2014-2016 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +30,9 @@ import java.nio.channels.SelectionKey;
  * Dispatches the events in the context of caller thread. This implementation is a good fit for
  * small applications where there are limited clients. Using this implementation limits the
  * scalability because the I/O thread performs the application specific processing.
- * 
- * <p>
- * For better performance use {@link ThreadPoolDispatcher}.
- * 
+ *
+ * <p>For better performance use {@link ThreadPoolDispatcher}.
+ *
  * @see ThreadPoolDispatcher
  */
 public class SameThreadDispatcher implements Dispatcher {
@@ -50,9 +51,7 @@ public class SameThreadDispatcher implements Dispatcher {
     channel.getHandler().handleChannelRead(channel, readObject, key);
   }
 
-  /**
-   * No resources to free.
-   */
+  /** No resources to free. */
   @Override
   public void stop() {
     // no-op

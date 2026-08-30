@@ -1,6 +1,8 @@
-/**
+/*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright (c) 2014-2016 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,31 +24,23 @@
  */
 package com.iluwatar.prototype;
 
-/**
- * 
- * OrcWarlord
- *
- */
+import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
+
+/** OrcWarlord. */
+@EqualsAndHashCode(callSuper = true)
+@RequiredArgsConstructor
 public class OrcWarlord extends Warlord {
 
-  private String weapon;
+  private final String weapon;
 
-  public OrcWarlord(String weapon) {
-    this.weapon = weapon;
-  }
-  
   public OrcWarlord(OrcWarlord orcWarlord) {
+    super(orcWarlord);
     this.weapon = orcWarlord.weapon;
-  }
-
-  @Override
-  public OrcWarlord copy() throws CloneNotSupportedException {
-    return new OrcWarlord(this);
   }
 
   @Override
   public String toString() {
     return "Orcish warlord attacks with " + weapon;
   }
-
 }

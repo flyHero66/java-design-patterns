@@ -1,6 +1,8 @@
-/**
+/*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright (c) 2014-2016 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,25 +24,20 @@
  */
 package com.iluwatar.bridge;
 
-import org.junit.jupiter.api.Disabled;
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
-/**
- * Base class for weapon tests
- */
-public abstract class WeaponTest {
+/** Base class for weapon tests */
+abstract class WeaponTest {
 
   /**
-   * Invoke the basic actions of the given weapon, and test if the underlying enchantment implementation
-   * is invoked
-   *
+   * Invoke the basic actions of the given weapon, and test if the underlying enchantment
+   * implementation is invoked
    */
-  protected final void testBasicWeaponActions(final Weapon weapon) {
+  final void testBasicWeaponActions(final Weapon weapon) {
     assertNotNull(weapon);
-    Enchantment enchantment = weapon.getEnchantment();
+    var enchantment = weapon.getEnchantment();
     assertNotNull(enchantment);
     assertNotNull(weapon.getEnchantment());
 
@@ -55,6 +52,5 @@ public abstract class WeaponTest {
     weapon.unwield();
     verify(enchantment).onDeactivate();
     verifyNoMoreInteractions(enchantment);
-
   }
 }

@@ -1,6 +1,8 @@
-/**
+/*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright (c) 2014-2016 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,16 +24,11 @@
  */
 package com.iluwatar.interpreter;
 
+import java.util.stream.Stream;
 import org.junit.jupiter.params.provider.Arguments;
 
-import java.util.stream.Stream;
-
-/**
- * Date: 12/14/15 - 12:08 PM
- *
- * @author Jeroen Meulemeester
- */
-public class MinusExpressionTest extends ExpressionTest<MinusExpression> {
+/** MinusExpressionTest */
+class MinusExpressionTest extends ExpressionTest<MinusExpression> {
 
   /**
    * Create a new set of test entries with the expected result
@@ -43,11 +40,8 @@ public class MinusExpressionTest extends ExpressionTest<MinusExpression> {
     return prepareParameters((f, s) -> f - s);
   }
 
-  /**
-   * Create a new test instance using the given test parameters and expected result
-   */
+  /** Create a new test instance using the given test parameters and expected result */
   public MinusExpressionTest() {
     super("-", MinusExpression::new);
   }
-
 }

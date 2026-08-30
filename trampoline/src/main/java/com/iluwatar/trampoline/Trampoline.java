@@ -1,6 +1,8 @@
-/**
+/*
+ * This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).
+ *
  * The MIT License
- * Copyright (c) 2014 Ilkka Seppälä
+ * Copyright © 2014-2022 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,32 +27,36 @@ package com.iluwatar.trampoline;
 import java.util.stream.Stream;
 
 /**
- * <p>Trampoline pattern allows to define recursive algorithms by iterative loop </p>
- * <p>When get is called on the returned Trampoline, internally it will iterate calling ‘jump’
- * on the returned Trampoline as long as the concrete instance returned is {@link #more(Trampoline)},
- * stopping once the returned instance is {@link #done(Object)}.</p>
- * <p>Essential we convert looping via recursion into iteration,
- * the key enabling mechanism is the fact that {@link #more(Trampoline)} is a lazy operation.</p>
+ * Trampoline pattern allows to define recursive algorithms by iterative loop.
  *
- * @param <T> is  type for returning result.
+ * <p>When get is called on the returned Trampoline, internally it will iterate calling ‘jump’ on
+ * the returned Trampoline as long as the concrete instance returned is {@link #more(Trampoline)},
+ * stopping once the returned instance is {@link #done(Object)}.
+ *
+ * <p>Essential we convert looping via recursion into iteration, the key enabling mechanism is the
+ * fact that {@link #more(Trampoline)} is a lazy operation.
+ *
+ * @param <T> is type for returning result.
  */
 public interface Trampoline<T> {
   T get();
 
-
   /**
+   * Jump to next stage.
+   *
    * @return next stage
    */
   default Trampoline<T> jump() {
     return this;
   }
 
-
   default T result() {
     return get();
   }
 
   /**
+   * Checks if complete.
+   *
    * @return true if complete
    */
   default boolean complete() {
@@ -58,7 +64,7 @@ public interface Trampoline<T> {
   }
 
   /**
-   * Created a completed Trampoline
+   * Created a completed Trampoline.
    *
    * @param result Completed result
    * @return Completed Trampoline
@@ -67,9 +73,8 @@ public interface Trampoline<T> {
     return () -> result;
   }
 
-
   /**
-   * Create a Trampoline that has more work to do
+   * Create a Trampoline that has more work to do.
    *
    * @param trampoline Next stage in Trampoline
    * @return Trampoline with more work
@@ -92,16 +97,12 @@ public interface Trampoline<T> {
       }
 
       T trampoline(final Trampoline<T> trampoline) {
-
         return Stream.iterate(trampoline, Trampoline::jump)
             .filter(Trampoline::complete)
             .findFirst()
-            .get()
-            .result();
-
+            .map(Trampoline::result)
+            .get();
       }
     };
   }
-
-
 }
